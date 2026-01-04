@@ -14,10 +14,9 @@ model = genai.GenerativeModel("gemini-1.5-pro")
 
 app = FastAPI()
 
-# Allow React to connect
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Replace with React URL in production
+    allow_origins=["*"],  
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -51,15 +50,62 @@ async def generate_recipe(payload: dict):
     ingredients = payload.get("ingredients")
 
     prompt = f"""
-You are a smart cooking assistant.
+You are an intelligent cooking assistant.
 
-Create ONE recipe using ONLY these ingredients:
-{ingredients}
+User Context:
+- Diet Preference: {diet_preference}  (vegan / non-vegan)
+- Cooking Mode: {mode}  (15-min rush / quick / normal)
+- User Age: {age}
+
+Follow this process STEP BY STEP:
+
+STEP 1: INGREDIENT ANALYSIS
+- Given ingredients: {ingredients}
+- Check which ingredients realistically work together.
+- STRICTLY follow the diet preference:
+  - If vegan → do NOT use eggs, dairy, meat, or any animal products.
+  - If non-vegan → all ingredients are allowed.
+- Do NOT add new ingredients at this step.
+
+STEP 2: MISSING ITEM CHECK
+- Decide if a recipe is possible using ONLY the given ingredients.
+- If NOT possible, choose ONLY ONE missing ingredient that is essential.
+- Ensure the missing ingredient also follows the diet preference.
+- If possible, clearly state: "No additional ingredients required."
+
+STEP 3: RECIPE PLANNING
+- Decide a simple, practical home-style recipe.
+- Adjust the recipe based on Cooking Mode:
+  - 15-min rush → minimal steps, very fast cooking.
+  - Quick → simple but slightly detailed.
+  - Normal → standard home cooking steps.
+- Avoid complex techniques if the user age is below 18.
+
+STEP 4: AGE-AWARE INSTRUCTION STYLE
+- If age < 18:
+  - Use very simple words.
+  - Short sentences.
+  - Clear and easy steps.
+- If age 18–40:
+  - Normal clarity with practical tips.
+- If age > 40:
+  - Calm, clear explanation.
+  - Focus on ease and comfort.
+
+STEP 5: FINAL OUTPUT
+Provide the output STRICTLY in this format:
+
+Recipe Name:
+Cooking Time:
+Diet Type:
+Ingredients Used:
+Missing Ingredient (if any):
+Step-by-Step Instructions:
 
 Rules:
-- Do not invent ingredients
-- If absolutely necessary, suggest ONLY ONE missing item
-- Give recipe name, time, and steps
+- Do NOT invent extra ingredients
+- Do NOT repeat analysis steps in output
+- Be concise, clear, and user-friendly
 """
 
     response = model.generate_content(prompt)
