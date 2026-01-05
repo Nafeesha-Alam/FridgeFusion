@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export function useAuthLogic(isLogin) {
   const [form, setForm] = useState({
-    username: "",
+    name: "", 
+    email: "",
     password: "",
     confirmPassword: "",
-    email: "",
-    contact_no: "",
-    qualification: "",
-    profession: "Student",
-    gender: "",
+    age: "", 
+    gender: "male", 
+    dietaryPreference: "non-veg", 
+    allergies: "", 
   });
+  
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -33,30 +35,34 @@ export function useAuthLogic(isLogin) {
       return;
     }
     setLoading(true);
+
     try {
-      const resp = await fetch(
-        `${isLogin ? "/login" : "/signup"}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
-        }
-      );
-      const data = await resp.json();
-      if (!resp.ok) throw new Error(data.detail || "Error occurred");
+      const baseURL = "http://localhost:5000/api/users";
+      const url = isLogin ? `${baseURL}/login` : `${baseURL}/signup`;
+
+      const response = await axios.post(url, form, {
+        withCredentials: true, 
+      });
+
+      const data = response.data;
 
       if (isLogin) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("username", data.username);
-        localStorage.setItem("role", data.role);
+        // --- UPDATED LOGIC FOR NAVBAR & AI INTEGRATION ---
+        // 1. Store the token for Navbar conditional rendering
+        localStorage.setItem("token", data.token); 
+        
+        // 2. Store the full user object (contains age, gender, diet)
+        // This is used by Navbar for the gender badge and by FastAPI for AI prompts
+        localStorage.setItem("userData", JSON.stringify(data.user));
+        
         navigate("/");
-        window.location.reload();
+        window.location.reload(); 
       } else {
-        alert("Account Created!");
+        alert("Account Created! Please login.");
         navigate("/login");
       }
     } catch (err) {
-      alert(err.message);
+      alert(err.response?.data?.message || "An error occurred");
     } finally {
       setLoading(false);
     }

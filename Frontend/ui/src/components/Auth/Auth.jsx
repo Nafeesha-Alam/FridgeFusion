@@ -8,8 +8,9 @@ import {
   Lock,
   Loader2,
   Phone,
-  GraduationCap,
   ChefHat,
+  Calendar,
+  Utensils,
 } from "lucide-react";
 import PasswordStrength from "./PasswordStrength";
 import AuthLayout from "./AuthLayout";
@@ -29,6 +30,11 @@ export default function Auth({ isLogin }) {
   const passwordsMatch =
     form.password === form.confirmPassword && form.confirmPassword !== "";
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
   return (
     <AuthLayout>
       <div className="space-y-5">
@@ -46,97 +52,113 @@ export default function Auth({ isLogin }) {
           </p>
         </div>
 
+        
         <div className="relative group">
-          <User
+          <Mail
             className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-orange-500 transition-colors"
             size={18}
           />
           <input
+            name="email"
+            type="email"
             className="w-full p-3.5 pl-11 border border-slate-200 rounded-2xl outline-none focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 transition-all text-sm bg-slate-50/50"
-            placeholder="Username"
-            value={form.username || ""}
-            onChange={(e) => setForm({ ...form, username: e.target.value })}
+            placeholder="Email Address"
+            value={form.email || ""}
+            onChange={handleChange}
+            required
           />
         </div>
 
         {!isLogin && (
           <div className="space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
+         
             <div className="relative group">
-              <Mail
+              <User
                 className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-orange-500"
                 size={18}
               />
               <input
+                name="name"
                 className="w-full p-3.5 pl-11 border border-slate-200 rounded-2xl outline-none focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 transition-all text-sm bg-slate-50/50"
-                placeholder="Email Address"
-                type="email"
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                placeholder="Full Name"
+                type="text"
+                value={form.name || ""}
+                onChange={handleChange}
+                required
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Age Field - Matches 'age' in Model */}
               <div className="relative">
-                <Phone
+                <Calendar
                   className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
                   size={18}
                 />
                 <input
+                  name="age"
+                  type="number"
                   className="w-full p-3.5 pl-11 border border-slate-200 rounded-2xl outline-none focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 transition-all text-sm bg-slate-50/50"
-                  placeholder="Contact No"
-                  onChange={(e) =>
-                    setForm({ ...form, contact_no: e.target.value })
-                  }
+                  placeholder="Age"
+                  value={form.age || ""}
+                  onChange={handleChange}
+                  required
                 />
               </div>
+
+            
               <div className="relative">
-                <GraduationCap
-                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
-                  size={18}
-                />
-                <input
-                  className="w-full p-3.5 pl-11 border border-slate-200 rounded-2xl outline-none focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 transition-all text-sm bg-slate-50/50"
-                  placeholder="Qualification"
-                  onChange={(e) =>
-                    setForm({ ...form, qualification: e.target.value })
-                  }
-                />
+                <select
+                  name="gender"
+                  className="w-full p-3.5 border border-slate-200 rounded-2xl bg-slate-50/50 text-sm outline-none focus:border-orange-500 appearance-none"
+                  value={form.gender || ""}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+           
+            <div className="relative">
+              <Utensils
+                className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+                size={18}
+              />
               <select
-                className="w-full p-3.5 border border-slate-200 rounded-2xl bg-slate-50/50 text-sm outline-none focus:border-orange-500"
-                onChange={(e) =>
-                  setForm({ ...form, profession: e.target.value })
-                }
+                name="dietaryPreference"
+                className="w-full p-3.5 pl-11 border border-slate-200 rounded-2xl bg-slate-50/50 text-sm outline-none focus:border-orange-500 appearance-none"
+                value={form.dietaryPreference || "non-veg"}
+                onChange={handleChange}
               >
-                <option value="Student">Student</option>
-                <option value="Teacher">Teacher</option>
-                <option value="Others">Others</option>
-              </select>
-              <select
-                className="w-full p-3.5 border border-slate-200 rounded-2xl bg-slate-50/50 text-sm outline-none focus:border-orange-500"
-                onChange={(e) => setForm({ ...form, gender: e.target.value })}
-              >
-                <option value="">Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
+                <option value="veg">Vegetarian</option>
+                <option value="non-veg">Non-Vegetarian</option>
+                <option value="vegan">Vegan</option>
+                <option value="paleo">Paleo</option>
+                <option value="keto">Keto</option>
               </select>
             </div>
           </div>
         )}
 
-       
+        
         <div className="relative group">
           <Lock
             className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-orange-500"
             size={18}
           />
           <input
+            name="password"
             className="w-full p-3.5 pl-11 pr-11 border border-slate-200 rounded-2xl outline-none focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 transition-all text-sm bg-slate-50/50"
             type={showPassword ? "text" : "password"}
             placeholder="Password"
-            onChange={(e) => setForm({ ...form, password: e.target.value })}
+            value={form.password || ""}
+            onChange={handleChange}
+            required
           />
           <button
             type="button"
@@ -147,12 +169,10 @@ export default function Auth({ isLogin }) {
           </button>
         </div>
 
-
         {!isLogin && form.password?.length > 0 && (
           <PasswordStrength password={form.password} strength={strength} />
         )}
 
-        
         {!isLogin && (
           <div className="relative">
             <Lock
@@ -160,6 +180,7 @@ export default function Auth({ isLogin }) {
               size={18}
             />
             <input
+              name="confirmPassword"
               className={`w-full p-3.5 pl-11 border rounded-2xl outline-none text-sm transition-all ${
                 form.confirmPassword?.length > 0
                   ? passwordsMatch
@@ -169,9 +190,9 @@ export default function Auth({ isLogin }) {
               }`}
               type={showPassword ? "text" : "password"}
               placeholder="Confirm Password"
-              onChange={(e) =>
-                setForm({ ...form, confirmPassword: e.target.value })
-              }
+              value={form.confirmPassword || ""}
+              onChange={handleChange}
+              required
             />
           </div>
         )}
@@ -187,7 +208,6 @@ export default function Auth({ isLogin }) {
           </div>
         )}
 
-       
         <button
           onClick={handleAction}
           disabled={loading}
@@ -199,7 +219,7 @@ export default function Auth({ isLogin }) {
               <span>Processing...</span>
             </>
           ) : isLogin ? (
-            "Sign In"
+            "Login"
           ) : (
             "Create Account"
           )}
