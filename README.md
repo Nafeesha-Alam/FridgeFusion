@@ -1,4 +1,4 @@
-#  Fridge Fusion AI  
+#  Fridge Fusion AI 🍳🥗 - Your Smart Kitchen Assistant
 ### A Personalized, Time-Aware & Inclusive Cooking Assistant
 
 ---
