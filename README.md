@@ -3,29 +3,29 @@
 
 ---
 
-## Overview
+## Overview 📑
 Fridge Fusion AI is a web-based application that aims to cut down food waste and make daily cooking easier. It uses **Artificial Intelligence** to help users decide what to cook based on the ingredients they already have by utilizing **Computer Vision** and **Large Language Models (LLMs)**.
 
 Users can upload a picture of their open fridge or enter ingredients manually. The system then generates **easy-to-follow, personalized recipes** tailored to dietary preferences, available cooking time, and user age. This project showcases a practical AI solution focused on sustainability, accessibility, and personalization.
 
 ---
 
-## Features
+## Features 🌟
 
-### Ingredient Detection
+### Ingredient Detection 📷
 - Upload a picture of your open fridge
 - AI identifies visible ingredients using Vision APIs
 - Manual ingredient entry available for flexibility
 
 ---
 
-### Dietary Preference Awareness
+### Dietary Preference Awareness 🥕
 - Supports both **Vegan** and **Non-Vegan** users
 - Recipes strictly adhere to selected dietary choices
 
 ---
 
-### Time & Mood-Based Cooking Modes
+### Time & Mood-Based Cooking Modes ⌚
 Users can select their cooking speed:
 - **15-Minute Rush Mode**
 - **Quick Recipe Mode**
@@ -35,7 +35,7 @@ The AI adjusts recipe steps, complexity, and prep time as needed.
 
 ---
 
-### Age-Adaptive Recipe Explanation
+### Age-Adaptive Recipe Explanation 👥
 - Users share their **age group**
 - Recipes are explained in:
   - Simple and beginner-friendly terms
@@ -44,14 +44,14 @@ The AI adjusts recipe steps, complexity, and prep time as needed.
 
 ---
 
-### Food Waste Reduction Focus
+### Food Waste Reduction Focus ♻️
 - Prioritizes ingredients that are nearing expiration
 - Uses as many available items as possible
 - Suggests **only one missing ingredient** if necessary
 
 ---
 
-## Why AI?
+## Why AI? 🧠
 - **Computer Vision APIs** detect ingredients from images
 - **Large Language Models (LLMs)** generate smart, tailored recipes
 - Prompt engineering allows for personalization based on:
@@ -62,7 +62,7 @@ The AI adjusts recipe steps, complexity, and prep time as needed.
 
 ---
 
-## Technologies Used
+## Technologies Used 🛠️
 - **Frontend:** React / Next.js  
 - **Backend:** Node.js / Python (FastAPI / Flask)  
 - **AI & ML:** Vision API, OpenAI / Gemini LLM  
@@ -71,7 +71,7 @@ The AI adjusts recipe steps, complexity, and prep time as needed.
 
 ---
 
-## Getting Started
+## Getting Started 🚀
 
 ### Prerequisites
 Make sure you have these installed:
@@ -104,7 +104,7 @@ npm install
 
 ---
 
-## Usage Workflow
+## Usage Workflow 🧪
 
 ### 1. Ingredient Input
 
@@ -126,7 +126,7 @@ npm install
 
 ---
 
-## Project Structure
+## Project Structure 📂
 
 ```
 .
@@ -142,7 +142,7 @@ npm install
 
 ---
 
-## Impact
+## Impact 🎯
 
 * Reduces food waste at home
 * Saves time and money
@@ -152,7 +152,7 @@ npm install
 
 ---
 
-## Team Roles
+## Team Roles 👨‍👩‍👧‍👦
 
 * **Frontend Developer:** UI design, image upload, user experience
 * **Backend Developer:** API management and AI integration
@@ -160,7 +160,7 @@ npm install
 
 ---
 
-## Future Scope
+## Future Scope 📈
 
 * Nutrition and calorie tracking
 * Support for multiple languages
@@ -170,7 +170,7 @@ npm install
 
 ---
 
-## Contributing
+## Contributing 🤝
 
 Contributions are welcome!
 
@@ -182,12 +182,12 @@ Contributions are welcome!
 
 ---
 
-## License
+## License 📄
 
 This project is created for hackathon and educational purposes.
 
 ---
 
-## Contact
+## Contact 📞
 
 For questions or collaboration, feel free to reach out to the project contributors.
